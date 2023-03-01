@@ -6,6 +6,6 @@ import ru.cft.movieapp.models.MoviesModel
 
 interface NetworkService {
 
-    @GET("3/movie/popular")
-    suspend fun getPopularMovie() : Response<MoviesModel>
+    @GET("3/movie/popular?api_key=${Api.KEY}")
+    suspend fun getPopularMovie() : MoviesModel
 }

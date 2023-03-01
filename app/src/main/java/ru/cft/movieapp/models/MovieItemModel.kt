@@ -1,5 +1,9 @@
 package ru.cft.movieapp.models
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
+
+@Parcelize
 data class MovieItemModel(
     val adult: Boolean,
     val backdrop_path: String,
@@ -15,4 +19,4 @@ data class MovieItemModel(
     val video: Boolean,
     val vote_average: Double,
     val vote_count: Int
-)
+): Parcelable
