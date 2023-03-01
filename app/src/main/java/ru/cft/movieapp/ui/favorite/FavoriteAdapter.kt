@@ -1,19 +1,24 @@
-package ru.cft.movieapp.ui.main
+package ru.cft.movieapp.ui.favorite
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import ru.cft.movieapp.databinding.ItemPopularMovieBinding
+import ru.cft.movieapp.R
+import ru.cft.movieapp.databinding.ItemFavoriteMovieBinding
 import ru.cft.movieapp.models.MovieItemModel
 import ru.cft.movieapp.providers.Api
+import ru.cft.movieapp.ui.main.MainAdapter
+import ru.cft.movieapp.ui.main.MainFragment
 
-class MainAdapter(private val listMovies: List<MovieItemModel>) :
-    RecyclerView.Adapter<MainAdapter.ViewHolder>() {
+
+class FavoriteAdapter(private val listMovies: List<MovieItemModel>) :
+    RecyclerView.Adapter<FavoriteAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
-            ItemPopularMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemFavoriteMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -23,11 +28,12 @@ class MainAdapter(private val listMovies: List<MovieItemModel>) :
     override fun getItemCount(): Int {
         return listMovies.size
     }
-    class ViewHolder(private val binding: ItemPopularMovieBinding) :
+    class ViewHolder(private val binding: ItemFavoriteMovieBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(movie: MovieItemModel) {
             with(binding) {
+                tvTitle.text = movie.title
                 Glide.with(ivMovie)
                     .load(Api.POSTER_URL+movie.poster_path)
                     .timeout(300)
@@ -35,13 +41,13 @@ class MainAdapter(private val listMovies: List<MovieItemModel>) :
             }
         }
     }
-    override fun onViewAttachedToWindow(holder: ViewHolder) {
+    override fun onViewAttachedToWindow(holder: FavoriteAdapter.ViewHolder) {
         super.onViewAttachedToWindow(holder)
         holder.itemView.setOnClickListener { view ->
-            MainFragment.clickMovie(listMovies[holder.adapterPosition], view)
+            FavoriteFragment.clickMovie(listMovies[holder.adapterPosition], view)
         }
     }
-    override fun onViewDetachedFromWindow(holder: ViewHolder) {
+    override fun onViewDetachedFromWindow(holder: FavoriteAdapter.ViewHolder) {
         holder.itemView.setOnClickListener(null)
     }
 }

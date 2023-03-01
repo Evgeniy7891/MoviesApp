@@ -4,7 +4,6 @@ import androidx.lifecycle.LiveData
 import androidx.room.*
 import ru.cft.movieapp.models.MovieItemModel
 
-
 @Dao
 interface MoviesDao {
 
@@ -15,5 +14,5 @@ interface MoviesDao {
     suspend fun delete(movieItemModel: MovieItemModel)
 
     @Query("SELECT * from movie_table")
-    suspend fun getAllMovies(): LiveData<List<MovieItemModel>>
+    fun getAllMovies(): LiveData<List<MovieItemModel>>
 }

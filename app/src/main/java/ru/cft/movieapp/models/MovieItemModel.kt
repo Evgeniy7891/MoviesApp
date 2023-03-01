@@ -14,7 +14,6 @@ data class MovieItemModel(
     val adult: Boolean,
     @ColumnInfo
     val backdrop_path: String,
-    val genre_ids: List<Int>,
     val original_language: String,
     val original_title: String,
     @ColumnInfo
