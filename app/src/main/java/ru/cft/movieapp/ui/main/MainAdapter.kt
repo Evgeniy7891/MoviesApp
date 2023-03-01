@@ -16,17 +16,13 @@ class MainAdapter(private val listMovies: List<MovieItemModel>) :
             ItemPopularMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
-
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = listMovies[position]
         holder.bind(item)
     }
-
     override fun getItemCount(): Int {
         return listMovies.size
     }
-
-
     class ViewHolder(private val binding: ItemPopularMovieBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
@@ -39,5 +35,14 @@ class MainAdapter(private val listMovies: List<MovieItemModel>) :
                     .into(ivMovie)
             }
         }
+    }
+    override fun onViewAttachedToWindow(holder: ViewHolder) {
+        super.onViewAttachedToWindow(holder)
+        holder.itemView.setOnClickListener { view ->
+            MainFragment.clickMovie(listMovies[holder.adapterPosition], view)
+        }
+    }
+    override fun onViewDetachedFromWindow(holder: ViewHolder) {
+        holder.itemView.setOnClickListener(null)
     }
 }
