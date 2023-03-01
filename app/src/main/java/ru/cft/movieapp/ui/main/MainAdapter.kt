@@ -3,8 +3,10 @@ package ru.cft.movieapp.ui.main
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import ru.cft.movieapp.databinding.ItemPopularMovieBinding
 import ru.cft.movieapp.models.MovieItemModel
+import ru.cft.movieapp.providers.Api
 
 class MainAdapter(private val listMovies: List<MovieItemModel>) :
     RecyclerView.Adapter<MainAdapter.ViewHolder>() {
@@ -31,6 +33,10 @@ class MainAdapter(private val listMovies: List<MovieItemModel>) :
         fun bind(movie: MovieItemModel) {
             with(binding) {
                 tvTitle.text = movie.title
+                Glide.with(ivMovie)
+                    .load(Api.POSTER_URL+movie.poster_path)
+                    .timeout(300)
+                    .into(ivMovie)
             }
         }
     }
