@@ -35,7 +35,8 @@ class FavoriteFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
     }
     private fun init() {
-        viewModel.gelAllMovies().observe(viewLifecycleOwner) { list ->
+        viewModel.gelAllMovies()
+            viewModel.favoriteMovieList.observe(viewLifecycleOwner) { list ->
             val adapter = FavoriteAdapter(list.asReversed())
             binding.rvListFavorite.adapter = adapter
         }

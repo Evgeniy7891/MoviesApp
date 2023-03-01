@@ -5,18 +5,16 @@ import ru.cft.movieapp.data.room.dao.MoviesDao
 import ru.cft.movieapp.models.MovieItemModel
 import javax.inject.Inject
 
-class MoviesRoomRepositoryImpl @Inject constructor (private val movieDao: MoviesDao) : MoviesRepository {
+class MoviesRoomRepositoryImpl @Inject constructor (private val movieDao: MoviesDao) : MoviesRoomRepository {
 
-    override val allMovies: LiveData<List<MovieItemModel>>
+    override val allMovies: List<MovieItemModel>
     get() = movieDao.getAllMovies()
 
-    override suspend fun insertMovie(movieItemModel: MovieItemModel, onSuccess: () -> Unit) {
+    override suspend fun insertMovie(movieItemModel: MovieItemModel) {
         movieDao.insert(movieItemModel)
-        onSuccess()
     }
 
-    override suspend fun deleteMovie(movieItemModel: MovieItemModel, onSuccess: () -> Unit) {
+    override suspend fun deleteMovie(movieItemModel: MovieItemModel) {
         movieDao.delete(movieItemModel)
-        onSuccess()
     }
 }

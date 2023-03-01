@@ -10,7 +10,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.launch
-import ru.cft.movieapp.data.repository.MoviesRepositoryImpl
 import ru.cft.movieapp.data.room.MoviesRoomDatabase
 import ru.cft.movieapp.data.room.repository.MoviesRoomRepositoryImpl
 import ru.cft.movieapp.domain.model.NetworkState
@@ -44,8 +43,8 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun initDatabase() {
-        val daoMovie = MoviesRoomDatabase.getInstatnce(context).getMovieDao()
-        REALISATION = MoviesRoomRepositoryImpl(daoMovie)
-    }
+//    fun initDatabase() {
+//        val daoMovie = MoviesRoomDatabase.getInstatnce(context).getMovieDao()
+//        REALISATION = MoviesRoomRepositoryImpl(daoMovie)
+//    }
 }

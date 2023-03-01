@@ -2,15 +2,12 @@ package ru.cft.movieapp.ui.favorite
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.navigation.Navigation
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import ru.cft.movieapp.R
 import ru.cft.movieapp.databinding.ItemFavoriteMovieBinding
 import ru.cft.movieapp.models.MovieItemModel
 import ru.cft.movieapp.providers.Api
-import ru.cft.movieapp.ui.main.MainAdapter
-import ru.cft.movieapp.ui.main.MainFragment
+
 
 
 class FavoriteAdapter(private val listMovies: List<MovieItemModel>) :

@@ -2,24 +2,27 @@ package ru.cft.movieapp.ui.details
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import ru.cft.movieapp.data.room.repository.MoviesRoomRepositoryImpl
+import ru.cft.movieapp.domain.usecases.DeleteFavoriteUseCase
+import ru.cft.movieapp.domain.usecases.InsertFavoriteUseCase
 import ru.cft.movieapp.models.MovieItemModel
-import ru.cft.movieapp.util.REALISATION
+import javax.inject.Inject
 
-class DetailsViewModel : ViewModel() {
+@HiltViewModel
+class DetailsViewModel @Inject constructor(
+    private val insertFavoriteUseCase: InsertFavoriteUseCase,
+    private val deleteFavoriteUseCase: DeleteFavoriteUseCase
+) : ViewModel() {
 
-    fun insert(movieItemModel: MovieItemModel, onSuccess: () -> Unit) =
+    fun insert(movieItemModel: MovieItemModel) =
         viewModelScope.launch(Dispatchers.IO) {
-            REALISATION.insertMovie(movieItemModel){
-                onSuccess
-            }
+            insertFavoriteUseCase.invoke(movieItemModel)
         }
-    fun delete(movieItemModel: MovieItemModel, onSuccess: () -> Unit) =
+
+    fun delete(movieItemModel: MovieItemModel) =
         viewModelScope.launch(Dispatchers.IO) {
-            REALISATION.deleteMovie(movieItemModel){
-                onSuccess
-            }
+            deleteFavoriteUseCase.invoke(movieItemModel)
         }
 }

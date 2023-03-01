@@ -39,7 +39,7 @@ class MainFragment : Fragment() {
 
     private fun initMovies() {
         viewModel.getInfo()
-        viewModel.initDatabase()
+//        viewModel.initDatabase()
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.result.collect {
                 val list = it?.results
