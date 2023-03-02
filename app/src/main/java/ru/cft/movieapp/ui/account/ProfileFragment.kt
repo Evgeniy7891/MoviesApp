@@ -33,7 +33,7 @@ class ProfileFragment : Fragment() {
     }
 
     private fun observeAuthState() {
-        viewModel.authenticationState.observe(viewLifecycleOwner, { authState ->
+        viewModel.authenticationState.observe(viewLifecycleOwner) { authState ->
             if (authState == LoginViewModel.AuthenticationState.AUTHENTICATED) {
                 val hello = String.format(
                     resources.getString(
@@ -48,6 +48,6 @@ class ProfileFragment : Fragment() {
                 }
             }
 
-        })
+        }
     }
 }

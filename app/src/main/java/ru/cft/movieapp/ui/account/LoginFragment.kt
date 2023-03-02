@@ -73,7 +73,9 @@ class LoginFragment : Fragment() {
         startActivityForResult(
             AuthUI.getInstance().createSignInIntentBuilder().setAvailableProviders(
                 providers
-            ).build(), SIGN_IN_RESULT_CODE
+            )
+                .setTheme(R.style.LoginTheme)
+                .build(), SIGN_IN_RESULT_CODE
         )
     }
 

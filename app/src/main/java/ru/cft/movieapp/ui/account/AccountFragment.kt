@@ -32,8 +32,8 @@ class AccountFragment : Fragment() {
     }
 
     private fun observeAuthState() {
-        viewModel.authenticationState.observe(viewLifecycleOwner, { authState ->
-            when(authState) {
+        viewModel.authenticationState.observe(viewLifecycleOwner) { authState ->
+            when (authState) {
                 LoginViewModel.AuthenticationState.AUTHENTICATED -> {
                     binding.btnPersonalAccount.setOnClickListener {
                         findNavController().navigate(R.id.profileFragment)
@@ -45,6 +45,6 @@ class AccountFragment : Fragment() {
                     }
                 }
             }
-        })
+        }
     }
 }
