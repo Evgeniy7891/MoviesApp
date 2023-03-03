@@ -5,6 +5,7 @@ import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import ru.cft.movieapp.databinding.ItemFavoriteMovieBinding
+import ru.cft.movieapp.databinding.ItemOriginalFavoriteBinding
 import ru.cft.movieapp.models.MovieItemModel
 import ru.cft.movieapp.providers.Api
 
@@ -15,7 +16,7 @@ class FavoriteAdapter(private val listMovies: List<MovieItemModel>) :
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val binding =
-            ItemFavoriteMovieBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            ItemOriginalFavoriteBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ViewHolder(binding)
     }
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
@@ -25,7 +26,7 @@ class FavoriteAdapter(private val listMovies: List<MovieItemModel>) :
     override fun getItemCount(): Int {
         return listMovies.size
     }
-    class ViewHolder(private val binding: ItemFavoriteMovieBinding) :
+    class ViewHolder(private val binding: ItemOriginalFavoriteBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
         fun bind(movie: MovieItemModel) {
