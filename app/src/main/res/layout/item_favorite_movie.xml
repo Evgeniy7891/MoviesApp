@@ -1,15 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:padding="4dp"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/iv_movie"
-        android:layout_width="125dp"
-        android:layout_height="200dp"
-        android:src="@drawable/ic_launcher_background"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_width="260dp"
+        android:layout_height="150dp"
+        app:strokeColor="@color/teal_700"
+        app:strokeWidth="2dp"
+        android:padding="2dp"
+        app:shapeAppearanceOverlay="@style/roundedImageView"
+        android:src="@drawable/tools_poster_second"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -17,11 +23,14 @@
         android:id="@+id/tv_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:text="Title"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/iv_movie"
-        app:layout_constraintTop_toTopOf="parent" />
+        android:fontFamily="@font/mark_pro"
+        android:text="Movie"
+        android:textColor="@color/white"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        android:layout_marginBottom="2dp"
+        app:layout_constraintEnd_toEndOf="@+id/iv_movie"
+        app:layout_constraintStart_toStartOf="@+id/iv_movie"
+        app:layout_constraintTop_toBottomOf="@id/iv_movie" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

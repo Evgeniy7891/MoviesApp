@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import ru.cft.movieapp.R
 import ru.cft.movieapp.databinding.ItemPopularMovieBinding
 import ru.cft.movieapp.models.MovieItemModel
 import ru.cft.movieapp.providers.Api
@@ -28,9 +29,12 @@ class MainAdapter(private val listMovies: List<MovieItemModel>) :
 
         fun bind(movie: MovieItemModel) {
             with(binding) {
+                tvTitle.text = movie.title
                 Glide.with(ivMovie)
                     .load(Api.POSTER_URL+movie.poster_path)
-                    .timeout(300)
+                    .placeholder(R.drawable.holder)
+                    .error(R.drawable.not_found)
+                    .timeout(500)
                     .into(ivMovie)
             }
         }
