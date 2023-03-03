@@ -26,4 +26,10 @@ class MoviesRepositoryImpl @Inject constructor(
            remoteDataSource.searchMovies(name)
        }
     }
+
+    override suspend fun getTv(): NetworkState<MoviesModel> {
+        return safeApiCall(ioDispatcher) {
+         remoteDataSource.getTv()
+        }
+    }
 }

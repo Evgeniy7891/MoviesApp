@@ -14,17 +14,17 @@ import ru.cft.movieapp.data.room.MoviesRoomDatabase
 import ru.cft.movieapp.data.room.repository.MoviesRoomRepositoryImpl
 import ru.cft.movieapp.domain.model.NetworkState
 import ru.cft.movieapp.domain.usecases.GetMovieUseCase
+import ru.cft.movieapp.domain.usecases.GetTvUseCase
 import ru.cft.movieapp.models.MoviesModel
+import ru.cft.movieapp.util.ContentModel
 import ru.cft.movieapp.util.REALISATION
 import javax.inject.Inject
 
 @HiltViewModel
 class MainViewModel @Inject constructor(
     private val getMoviesUseCase: GetMovieUseCase,
-    @ApplicationContext context: Context
+    private val getTvUseCase: GetTvUseCase
 ) : ViewModel() {
-
-    val context = context
 
     private val _errorMessage = MutableSharedFlow<String>()
     val errorMessage = _errorMessage.asSharedFlow()
@@ -43,8 +43,20 @@ class MainViewModel @Inject constructor(
         }
     }
 
-//    fun initDatabase() {
-//        val daoMovie = MoviesRoomDatabase.getInstatnce(context).getMovieDao()
-//        REALISATION = MoviesRoomRepositoryImpl(daoMovie)
-//    }
+    private val _errorMessageTv = MutableSharedFlow<String>()
+    val errorMessageTv = _errorMessageTv.asSharedFlow()
+
+    private val _isLoadingTv = MutableStateFlow<Boolean>(false)
+    val isLoadingTv = _isLoadingTv.asStateFlow()
+
+    private val _resultTv = MutableStateFlow<MoviesModel?>(null)
+    val resultTv = _resultTv.asStateFlow()
+
+    fun getInfoTv() = viewModelScope.launch {
+        when (val response = getTvUseCase.invoke()) {
+            is NetworkState.Error -> _errorMessageTv.emit(response.throwable)
+            is NetworkState.Loading -> TODO("not implemented yet")
+            is NetworkState.Success -> _resultTv.emit(response.success)
+        }
+    }
 }

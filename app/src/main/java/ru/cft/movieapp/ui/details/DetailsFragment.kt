@@ -41,7 +41,9 @@ class DetailsFragment : Fragment() {
         with(binding) {
             Glide.with(ivMovie)
                 .load(Api.POSTER_DETAILS_URL+currentMovie.backdrop_path)
-                .timeout(500)
+                .timeout(1000)
+                .placeholder(R.drawable.search_holder)
+                .error(R.drawable.error_second)
                 .into(ivMovie)
             tvTitle.text = currentMovie.title
             tvDescription.text = currentMovie.overview

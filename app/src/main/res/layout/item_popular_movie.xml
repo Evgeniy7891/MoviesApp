@@ -3,31 +3,33 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
    android:layout_margin="4dp"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-        <com.google.android.material.imageview.ShapeableImageView
-            android:id="@+id/iv_movie"
-            android:layout_width="110dp"
-            android:layout_height="162dp"
-            app:shapeAppearanceOverlay="@style/roundedImageView"
-            app:strokeColor="@color/teal_700"
-            app:strokeWidth="2dp"
-            android:padding="4dp"
-            android:src="@drawable/tools_poster"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
-        android:id="@+id/tv_title"
+        android:id="@+id/tv_popular"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/mark_pro"
-        android:text="Movie"
+        android:text="Popular movies"
         android:textColor="@color/white"
-        android:textSize="12sp"
-        app:layout_constraintEnd_toEndOf="@id/iv_movie"
-        app:layout_constraintStart_toStartOf="@+id/iv_movie"
-        app:layout_constraintTop_toBottomOf="@+id/iv_movie" />
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_content"
+        android:layout_width="355dp"
+        android:layout_height="wrap_content"
+        app:layoutManager="androidx.recyclerview.widget.GridLayoutManager"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/tv_popular"
+        app:layout_constraintVertical_bias="1.0"
+        app:spanCount="3"
+        tools:itemCount="6"
+        tools:listitem="@layout/item_content" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

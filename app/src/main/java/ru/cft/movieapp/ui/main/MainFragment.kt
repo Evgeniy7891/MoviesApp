@@ -11,10 +11,15 @@ import androidx.navigation.findNavController
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.launch
 import ru.cft.movieapp.R
 import ru.cft.movieapp.databinding.FragmentMainBinding
 import ru.cft.movieapp.models.MovieItemModel
+import ru.cft.movieapp.util.ContentModel
 import ru.cft.movieapp.util.MAIN
 
 @AndroidEntryPoint
@@ -22,6 +27,7 @@ class MainFragment : Fragment() {
 
     private val viewModel: MainViewModel by viewModels()
     lateinit var binding: FragmentMainBinding
+    private var content = mutableListOf<ContentModel>()
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -33,17 +39,28 @@ class MainFragment : Fragment() {
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        initMovies()
         super.onViewCreated(view, savedInstanceState)
+        initMovies()
+        initTv()
     }
 
     private fun initMovies() {
         viewModel.getInfo()
-//        viewModel.initDatabase()
-        viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.result.collect {
-                val list = it?.results
-                val adapter = list?.let { movies -> MainAdapter(movies) }
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+            viewModel.result.collect { movies ->
+                if (movies != null) {
+                    content.add(ContentModel("Popular movies", movies.results))
+                }
+            }
+        }
+    }
+    private fun initTv() {
+        viewModel.getInfoTv()
+        viewLifecycleOwner.lifecycleScope.launchWhenCreated {
+            viewModel.resultTv.collect { tv ->
+                delay(300)
+                if (tv != null) { content.add(ContentModel("Popular TV shows", tv.results)) }
+                val adapter =  MainAdapter(content)
                 binding.rvListPopular.adapter = adapter
 
             }
@@ -57,9 +74,14 @@ class MainFragment : Fragment() {
 
     companion object {
         fun clickMovie(model : MovieItemModel, view: View) {
-            val bundle = Bundle()
-            bundle.putSerializable("key", model)
-            Navigation.createNavigateOnClickListener(R.id.action_mainFragment_to_detailsFragment, bundle).onClick(view)
+                val bundle = Bundle()
+                bundle.putSerializable("key", model)
+                Navigation.createNavigateOnClickListener(R.id.action_mainFragment_to_detailsFragment, bundle).onClick(view)
         }
+    }
+
+    override fun onStop() {
+        content.clear()
+        super.onStop()
     }
 }

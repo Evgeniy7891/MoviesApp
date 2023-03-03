@@ -2,14 +2,16 @@ package ru.cft.movieapp.ui.main
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import ru.cft.movieapp.R
 import ru.cft.movieapp.databinding.ItemPopularMovieBinding
 import ru.cft.movieapp.models.MovieItemModel
 import ru.cft.movieapp.providers.Api
+import ru.cft.movieapp.util.ContentModel
 
-class MainAdapter(private val listMovies: List<MovieItemModel>) :
+class MainAdapter(private val listMovies: List<ContentModel>) :
     RecyclerView.Adapter<MainAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -19,7 +21,11 @@ class MainAdapter(private val listMovies: List<MovieItemModel>) :
     }
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = listMovies[position]
-        holder.bind(item)
+        holder.textPopular.text = item.title
+        val list = item.info
+        holder.recyclerView.apply {
+            adapter = TvAdapter(list)
+        }
     }
     override fun getItemCount(): Int {
         return listMovies.size
@@ -27,25 +33,7 @@ class MainAdapter(private val listMovies: List<MovieItemModel>) :
     class ViewHolder(private val binding: ItemPopularMovieBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(movie: MovieItemModel) {
-            with(binding) {
-                tvTitle.text = movie.title
-                Glide.with(ivMovie)
-                    .load(Api.POSTER_URL+movie.poster_path)
-                    .placeholder(R.drawable.holder)
-                    .error(R.drawable.not_found)
-                    .timeout(500)
-                    .into(ivMovie)
-            }
-        }
-    }
-    override fun onViewAttachedToWindow(holder: ViewHolder) {
-        super.onViewAttachedToWindow(holder)
-        holder.itemView.setOnClickListener { view ->
-            MainFragment.clickMovie(listMovies[holder.adapterPosition], view)
-        }
-    }
-    override fun onViewDetachedFromWindow(holder: ViewHolder) {
-        holder.itemView.setOnClickListener(null)
+        val textPopular : TextView = binding.tvPopular
+        val recyclerView: RecyclerView = binding.rvContent
     }
 }
