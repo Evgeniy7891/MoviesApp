@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import ru.cft.movieapp.R
 import ru.cft.movieapp.databinding.FragmentMainBinding
 import ru.cft.movieapp.databinding.FragmentSearchBinding
@@ -35,14 +36,27 @@ class SearchFragment : Fragment() {
     }
 
     private fun searchMovies() {
-        viewModel.getInfo("Moscow")
+        with(binding) {
+            btnSearch.setOnClickListener {
+                val movie = etSearchMovie.text.toString()
+                if (movie != "") {
+                    initMovies(movie)
+                    btnSearch.isLoading = true
+                }
+            }
+        }
+    }
+
+    private fun initMovies(movie: String) {
+        viewModel.getInfo(movie)
 //        viewModel.initDatabase()
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
-            viewModel.result.collect {
-                val list = it?.results
+            delay(1000)
+            viewModel.result.collect { result ->
+                val list = result?.results
                 val adapter = list?.let { movies -> SearchAdapter(movies) }
                 binding.rvListFavorite.adapter = adapter
-
+                binding.btnSearch.isLoading = false
             }
         }
     }
