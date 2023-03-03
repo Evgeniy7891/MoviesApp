@@ -2,6 +2,7 @@ package ru.cft.movieapp.providers
 
 import retrofit2.Response
 import ru.cft.movieapp.data.datasources.MovieRemoteDataSource
+import ru.cft.movieapp.models.ItemDetails
 import ru.cft.movieapp.models.MoviesModel
 import javax.inject.Inject
 
@@ -17,5 +18,9 @@ class MoviesRemoteDataSourceImpl @Inject constructor(private val apiService: Net
 
     override suspend fun getTv(): MoviesModel {
         return apiService.getPopularTv()
+    }
+
+    override suspend fun getDetails(id: Int): ItemDetails {
+        return apiService.getDetails(id)
     }
 }

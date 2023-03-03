@@ -1,8 +1,10 @@
 package ru.cft.movieapp.providers
 
 import retrofit2.http.GET
+import retrofit2.http.Path
 import retrofit2.http.Query
 import ru.cft.movieapp.models.MoviesModel
+import ru.cft.movieapp.models.ItemDetails
 
 interface NetworkService {
 
@@ -14,4 +16,7 @@ interface NetworkService {
 
     @GET("/3/tv/popular?api_key=${Api.KEY}")
     suspend fun getPopularTv() : MoviesModel
+
+    @GET("/3/movie/{id}?api_key=${Api.KEY}")
+    suspend fun getDetails(@Path("id") id: Int) : ItemDetails
 }
