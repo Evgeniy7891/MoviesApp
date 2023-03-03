@@ -55,16 +55,6 @@ class MainFragment : Fragment() {
         super.onCreateOptionsMenu(menu, inflater)
     }
 
-    @Deprecated("Deprecated in Java")
-    override fun onOptionsItemSelected(item: MenuItem): Boolean {
-        return when(item.itemId) {
-            R.id.item_favorite -> {
-                findNavController().navigate(R.id.action_mainFragment_to_favoriteFragment)
-                true
-            }
-            else -> super.onOptionsItemSelected(item)
-        }
-    }
     companion object {
         fun clickMovie(model : MovieItemModel, view: View) {
             val bundle = Bundle()
