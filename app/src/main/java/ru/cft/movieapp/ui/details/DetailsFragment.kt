@@ -60,11 +60,11 @@ class DetailsFragment : Fragment() {
 
             ivFavorite.setOnClickListener {
                 isFavorite = if (!isFavorite) {
-                    ivFavorite.setImageResource(R.drawable.ic_favorite_full)
+                    ivFavorite.setImageResource(R.drawable.ic_full_like)
                     viewModel.insert(currentMovie)
                     true
                 } else {
-                    ivFavorite.setImageResource(R.drawable.ic_favorite)
+                    ivFavorite.setImageResource(R.drawable.ic_like)
                     viewModel.delete(currentMovie)
                     false
                 }
