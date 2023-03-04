@@ -9,4 +9,5 @@ interface MoviesRepository {
     suspend fun searchMovies(name : String) : NetworkState<MoviesModel>
     suspend fun getTv() : NetworkState<MoviesModel>
     suspend fun getDetails(id: Int) : NetworkState<ItemDetails>
+    suspend fun searchTv(name: String) : NetworkState<MoviesModel>
 }

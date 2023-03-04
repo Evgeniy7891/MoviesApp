@@ -8,4 +8,5 @@ interface MovieRemoteDataSource {
     suspend fun searchMovies(name:String) : MoviesModel
     suspend fun getTv () : MoviesModel
     suspend fun getDetails (id: Int) : ItemDetails
+    suspend fun searchTv (name:String) : MoviesModel
 }

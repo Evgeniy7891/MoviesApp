@@ -2,14 +2,17 @@ package ru.cft.movieapp.ui.search
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import ru.cft.movieapp.R
 import ru.cft.movieapp.databinding.ItemFavoriteMovieBinding
 import ru.cft.movieapp.models.MovieItemModel
 import ru.cft.movieapp.providers.Api
+import ru.cft.movieapp.ui.main.TvAdapter
+import ru.cft.movieapp.util.ContentModel
 
-class SearchAdapter (private val listMovies: List<MovieItemModel>) :
+class SearchAdapter (private val listMovies: List<ContentModel>) :
     RecyclerView.Adapter<SearchAdapter.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -20,9 +23,12 @@ class SearchAdapter (private val listMovies: List<MovieItemModel>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = listMovies[position]
-        holder.bind(item)
+        holder.textHeader.text = item.title
+        val list = item.info
+        holder.recyclerView.apply {
+            adapter = ChildSearchAdapter(list)
+        }
     }
-
     override fun getItemCount(): Int {
         return listMovies.size
     }
@@ -30,16 +36,7 @@ class SearchAdapter (private val listMovies: List<MovieItemModel>) :
     class ViewHolder(private val binding: ItemFavoriteMovieBinding) :
         RecyclerView.ViewHolder(binding.root) {
 
-        fun bind(movie: MovieItemModel) {
-            with(binding) {
-                tvTitle.text = movie.title
-                Glide.with(ivMovie)
-                    .load(Api.POSTER_DETAILS_URL + movie.backdrop_path)
-                    .placeholder(R.drawable.search_holder)
-                    .error(R.drawable.error_second)
-                    .timeout(500)
-                    .into(ivMovie)
-            }
-        }
+        val textHeader : TextView = binding.tvNameContent
+        val recyclerView: RecyclerView = binding.rvChild
     }
 }

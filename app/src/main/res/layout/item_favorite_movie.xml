@@ -6,31 +6,28 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
-    <com.google.android.material.imageview.ShapeableImageView
-        android:id="@+id/iv_movie"
-        android:layout_width="260dp"
-        android:layout_height="150dp"
-        app:strokeColor="@color/teal_700"
-        app:strokeWidth="2dp"
-        android:padding="2dp"
-        app:shapeAppearanceOverlay="@style/roundedImageView"
-        android:src="@drawable/tools_poster_second"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
-
     <TextView
-        android:id="@+id/tv_title"
+        android:id="@+id/tv_name_content"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:fontFamily="@font/mark_pro"
-        android:text="Movie"
         android:textColor="@color/white"
-        android:textSize="16sp"
-        android:textStyle="bold"
-        android:layout_marginBottom="2dp"
-        app:layout_constraintEnd_toEndOf="@+id/iv_movie"
-        app:layout_constraintStart_toStartOf="@+id/iv_movie"
-        app:layout_constraintTop_toBottomOf="@id/iv_movie" />
+        android:textSize="20sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+        />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/rv_child"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
+        app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tv_name_content"
+        tools:itemCount="2"
+        tools:listitem="@layout/item_child_search" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

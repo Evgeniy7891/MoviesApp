@@ -19,4 +19,7 @@ interface NetworkService {
 
     @GET("/3/movie/{id}?api_key=${Api.KEY}")
     suspend fun getDetails(@Path("id") id: Int) : ItemDetails
+
+    @GET("/3/search/tv?api_key=${Api.KEY}")
+    suspend fun searchTv(@Query("query") query: String) : MoviesModel
 }

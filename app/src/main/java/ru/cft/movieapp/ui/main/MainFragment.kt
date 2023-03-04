@@ -59,10 +59,11 @@ class MainFragment : Fragment() {
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.resultTv.collect { tv ->
                 delay(300)
-                if (tv != null) { content.add(ContentModel("Popular TV shows", tv.results)) }
-                val adapter =  MainAdapter(content)
-                binding.rvListPopular.adapter = adapter
-
+                if (tv != null) {
+                    content.add(ContentModel("Popular TV shows", tv.results))
+                    val adapter = MainAdapter(content)
+                    binding.rvListPopular.adapter = adapter
+                }
             }
         }
     }

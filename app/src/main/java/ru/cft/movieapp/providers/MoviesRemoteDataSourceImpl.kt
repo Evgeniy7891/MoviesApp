@@ -23,4 +23,8 @@ class MoviesRemoteDataSourceImpl @Inject constructor(private val apiService: Net
     override suspend fun getDetails(id: Int): ItemDetails {
         return apiService.getDetails(id)
     }
+
+    override suspend fun searchTv(name: String): MoviesModel {
+       return apiService.searchTv(name)
+    }
 }

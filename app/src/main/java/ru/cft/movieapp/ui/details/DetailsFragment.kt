@@ -96,7 +96,7 @@ class DetailsFragment : Fragment() {
                     title.text = result.title
                     years.text = result.release_date
                     duration.text = result.runtime.toString() + " " + "min."
-                    geners.text = result.genres[1].toString()
+                    geners.text = result.genres[0].name
                     descriptions.text = result.overview
                 }
             }
