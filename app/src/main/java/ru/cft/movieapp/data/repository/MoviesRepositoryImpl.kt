@@ -2,7 +2,6 @@ package ru.cft.movieapp.data.repository
 
 import kotlinx.coroutines.CoroutineDispatcher
 import ru.cft.movieapp.data.datasources.MovieRemoteDataSource
-import ru.cft.movieapp.data.room.dao.MoviesDao
 import ru.cft.movieapp.di.IoDispatcher
 import ru.cft.movieapp.domain.model.NetworkState
 import ru.cft.movieapp.domain.repository.MoviesRepository

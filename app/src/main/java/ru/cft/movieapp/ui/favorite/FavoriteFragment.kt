@@ -7,27 +7,23 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.navigation.Navigation
-import androidx.recyclerview.widget.RecyclerView
 import dagger.hilt.android.AndroidEntryPoint
 import ru.cft.movieapp.R
 import ru.cft.movieapp.databinding.FragmentFavoriteBinding
-import ru.cft.movieapp.databinding.FragmentMainBinding
 import ru.cft.movieapp.models.MovieItemModel
-import ru.cft.movieapp.ui.main.MainAdapter
-import ru.cft.movieapp.ui.main.MainViewModel
 
 @AndroidEntryPoint
 class FavoriteFragment : Fragment() {
 
     private val viewModel: FavoriteViewModel by viewModels()
-    lateinit var binding: FragmentFavoriteBinding
+    private var _binding: FragmentFavoriteBinding? = null
+    private val binding get() = _binding ?: throw IllegalStateException("Cannot access view")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentFavoriteBinding.inflate(layoutInflater, container, false)
-
+        _binding = FragmentFavoriteBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -47,5 +43,9 @@ class FavoriteFragment : Fragment() {
             bundle.putSerializable("key", model)
             Navigation.createNavigateOnClickListener(R.id.action_favoriteFragment_to_detailsFragment, bundle).onClick(view)
         }
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

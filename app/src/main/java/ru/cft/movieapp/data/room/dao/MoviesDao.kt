@@ -1,6 +1,5 @@
 package ru.cft.movieapp.data.room.dao
 
-import androidx.lifecycle.LiveData
 import androidx.room.*
 import ru.cft.movieapp.models.MovieItemModel
 

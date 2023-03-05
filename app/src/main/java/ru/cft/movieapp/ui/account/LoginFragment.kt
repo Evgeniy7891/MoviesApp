@@ -19,33 +19,28 @@ import com.firebase.ui.auth.IdpResponse
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import ru.cft.movieapp.databinding.FragmentLoginBinding
+import ru.cft.movieapp.util.SIGN_IN_RESULT_CODE
+import ru.cft.movieapp.util.TAG
 
 class LoginFragment : Fragment() {
 
-    companion object {
-        const val TAG = "LoginFragment"
-        const val SIGN_IN_RESULT_CODE = 1001
-    }
-
     private val viewModel by viewModels<LoginViewModel>()
     private lateinit var navController: NavController
-    private lateinit var binding: FragmentLoginBinding
+    private var _binding: FragmentLoginBinding? = null
+    private val binding get() = _binding ?: throw IllegalStateException("Cannot access view")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentLoginBinding.inflate(layoutInflater, container, false)
-        binding.btnLogin.setOnClickListener {
-            launchSignIn()
-        }
+        _binding = FragmentLoginBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        initClick()
         navController = findNavController()
-
         requireActivity().onBackPressedDispatcher.addCallback(viewLifecycleOwner) {
             navController.popBackStack(R.id.accountFragment, false)
         }
@@ -63,6 +58,17 @@ class LoginFragment : Fragment() {
                 else -> Log.d(TAG, "Authentication state that doesn't require any UI change $authState")
             }
         })
+    }
+
+    private fun initClick() {
+        with(binding) {
+            btnLogin.setOnClickListener {
+                launchSignIn()
+            }
+            btnBack.setOnClickListener {
+                findNavController().popBackStack()
+            }
+        }
     }
 
     private fun launchSignIn() {
@@ -90,5 +96,9 @@ class LoginFragment : Fragment() {
                 )
             }
         }
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

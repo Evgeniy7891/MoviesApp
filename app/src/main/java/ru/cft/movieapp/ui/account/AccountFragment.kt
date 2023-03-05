@@ -15,13 +15,14 @@ import ru.cft.movieapp.databinding.FragmentAccountBinding
 class AccountFragment : Fragment() {
 
     private val viewModel by viewModels<LoginViewModel>()
-    private lateinit var binding: FragmentAccountBinding
+    private var _binding: FragmentAccountBinding? = null
+    private val binding get() = _binding ?: throw IllegalStateException("Cannot access view")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentAccountBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentAccountBinding.inflate(layoutInflater, container, false)
 
         return binding.root
     }
@@ -46,5 +47,9 @@ class AccountFragment : Fragment() {
                 }
             }
         }
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

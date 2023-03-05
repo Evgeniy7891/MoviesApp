@@ -1,6 +1,7 @@
 package ru.cft.movieapp.ui.details
 
 import android.os.Bundle
+import android.text.InputFilter
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -18,12 +19,14 @@ import ru.cft.movieapp.databinding.FragmentDetailsBinding
 import ru.cft.movieapp.models.MovieItemModel
 import ru.cft.movieapp.providers.Api
 import ru.cft.movieapp.util.LikesHelper
+import ru.cft.movieapp.util.WAITING_FOR_DATA
 
 @AndroidEntryPoint
 class DetailsFragment : Fragment() {
 
     private val viewModel: DetailsViewModel by viewModels()
-    lateinit var binding: FragmentDetailsBinding
+    private var _binding: FragmentDetailsBinding? = null
+    private val binding get() = _binding ?: throw IllegalStateException("Cannot access view")
     lateinit var currentMovie: MovieItemModel
     private var isFavorite = false
 
@@ -31,7 +34,7 @@ class DetailsFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
-        binding = FragmentDetailsBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentDetailsBinding.inflate(layoutInflater, container, false)
         currentMovie = arguments?.getSerializable("key") as MovieItemModel
         viewModel.getDetails(currentMovie.id)
         return binding.root
@@ -59,6 +62,8 @@ class DetailsFragment : Fragment() {
                 .error(R.drawable.error_second)
                 .into(ivMovie)
             tvTitle.text = currentMovie.title
+
+            tvDescription.filters += InputFilter.LengthFilter(200)
             tvDescription.text = currentMovie.overview
 
             ivFavorite.setOnClickListener {
@@ -92,11 +97,11 @@ class DetailsFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.result.collect { result ->
-                delay(1000)
+                delay(500)
                 if (result != null) {
                     Glide.with(image)
                         .load(Api.POSTER_URL + result.poster_path)
-                        .timeout(1000)
+                        .timeout(WAITING_FOR_DATA)
                         .placeholder(R.drawable.tools_poster)
                         .into(image)
                     title.text = result.title
@@ -109,5 +114,9 @@ class DetailsFragment : Fragment() {
                 } else geners.text = StringBuilder().append("Information in development")
             }
         }
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }

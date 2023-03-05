@@ -6,24 +6,23 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
-import androidx.navigation.NavController
 import androidx.navigation.fragment.findNavController
 import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
 import ru.cft.movieapp.R
-import ru.cft.movieapp.databinding.FragmentLoginBinding
 import ru.cft.movieapp.databinding.FragmentProfileBinding
 
 class ProfileFragment : Fragment() {
 
     private val viewModel by viewModels<LoginViewModel>()
-    private lateinit var binding: FragmentProfileBinding
+    private var _binding: FragmentProfileBinding? = null
+    private val binding get() = _binding ?: throw IllegalStateException("Cannot access view")
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        binding = FragmentProfileBinding.inflate(layoutInflater, container, false)
+        _binding = FragmentProfileBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
 
@@ -49,5 +48,9 @@ class ProfileFragment : Fragment() {
             }
 
         }
+    }
+    override fun onDestroyView() {
+        super.onDestroyView()
+        _binding = null
     }
 }
