@@ -5,6 +5,7 @@ import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Toast
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
@@ -69,6 +70,7 @@ class SearchFragment : Fragment() {
         viewModel.getInfoTv(movie)
         viewLifecycleOwner.lifecycleScope.launchWhenStarted {
             viewModel.resultTv.collect { tv ->
+                delay(500)
                 if (tv != null) {
                     content.add(ContentModel("TV shows", tv.results))
                 }
@@ -78,11 +80,16 @@ class SearchFragment : Fragment() {
 
     private fun initRecyclerView() {
         CoroutineScope(Dispatchers.Main).launch {
-            val adapter = SearchAdapter(content)
-            binding.rvListSearch.adapter = adapter
-            binding.rvListSearch.itemAnimator = null
-            binding.btnSearch.isLoading = false
-            adapter.notifyDataSetChanged()
+            delay(1000)
+            try {
+                val adapter = SearchAdapter(content)
+                if (content.isEmpty()) adapter.notifyDataSetChanged()
+                binding.rvListSearch.adapter = adapter
+                binding.rvListSearch.itemAnimator = null
+                binding.btnSearch.isLoading = false
+            } catch (e : IndexOutOfBoundsException) {
+                Toast.makeText(requireContext(),"Batman forever", Toast.LENGTH_SHORT).show()
+            }
         }
     }
 

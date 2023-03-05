@@ -37,7 +37,7 @@ class ChildSearchAdapter (private val listMovies: List<MovieItemModel>) :
                     .load(Api.POSTER_DETAILS_URL + movie.backdrop_path)
                     .placeholder(R.drawable.search_holder)
                     .error(R.drawable.error_second)
-                    .timeout(500)
+                    .timeout(1500)
                     .into(ivMovie)
             }
         }

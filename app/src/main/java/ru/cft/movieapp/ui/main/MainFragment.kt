@@ -54,6 +54,7 @@ class MainFragment : Fragment(), MenuProvider {
         viewModel.getInfoTv()
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.resultTv.collect { tv ->
+                delay(500)
                 if (tv != null) {
                     content.add(ContentModel("Popular TV shows", tv.results))
                     val adapter = MainAdapter(content)
