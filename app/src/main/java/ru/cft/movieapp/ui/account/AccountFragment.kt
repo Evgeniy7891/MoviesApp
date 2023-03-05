@@ -10,6 +10,7 @@ import androidx.navigation.fragment.findNavController
 import dagger.hilt.android.AndroidEntryPoint
 import ru.cft.movieapp.R
 import ru.cft.movieapp.databinding.FragmentAccountBinding
+import ru.cft.movieapp.util.AuthenticationState
 
 @AndroidEntryPoint
 class AccountFragment : Fragment() {
@@ -23,7 +24,6 @@ class AccountFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentAccountBinding.inflate(layoutInflater, container, false)
-
         return binding.root
     }
 
@@ -35,7 +35,7 @@ class AccountFragment : Fragment() {
     private fun observeAuthState() {
         viewModel.authenticationState.observe(viewLifecycleOwner) { authState ->
             when (authState) {
-                LoginViewModel.AuthenticationState.AUTHENTICATED -> {
+                AuthenticationState.AUTHENTICATED -> {
                     binding.btnPersonalAccount.setOnClickListener {
                         findNavController().navigate(R.id.profileFragment)
                     }

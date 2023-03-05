@@ -2,6 +2,7 @@ package ru.cft.movieapp.ui.details
 
 import android.os.Bundle
 import android.text.InputFilter
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -19,6 +20,7 @@ import ru.cft.movieapp.databinding.FragmentDetailsBinding
 import ru.cft.movieapp.models.MovieItemModel
 import ru.cft.movieapp.providers.Api
 import ru.cft.movieapp.util.LikesHelper
+import ru.cft.movieapp.util.TAG
 import ru.cft.movieapp.util.WAITING_FOR_DATA
 
 @AndroidEntryPoint
@@ -28,7 +30,6 @@ class DetailsFragment : Fragment() {
     private var _binding: FragmentDetailsBinding? = null
     private val binding get() = _binding ?: throw IllegalStateException("Cannot access view")
     lateinit var currentMovie: MovieItemModel
-    private var isFavorite = false
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -49,9 +50,8 @@ class DetailsFragment : Fragment() {
     }
 
     private fun init() {
-        val valueLike = LikesHelper.getFavorite(requireContext(), currentMovie.id.toString())
-
-        if (isFavorite != valueLike) binding.ivFavorite.setImageResource(R.drawable.ic_full_like) else
+        var valueLike = LikesHelper.getFavorite(currentMovie.id.toString())
+        if (valueLike) binding.ivFavorite.setImageResource(R.drawable.ic_full_like) else
             binding.ivFavorite.setImageResource(R.drawable.ic_like)
 
         with(binding) {
@@ -67,16 +67,16 @@ class DetailsFragment : Fragment() {
             tvDescription.text = currentMovie.overview
 
             ivFavorite.setOnClickListener {
-                isFavorite = if (isFavorite == valueLike) {
+               if (!valueLike) {
                     ivFavorite.setImageResource(R.drawable.ic_full_like)
-                    LikesHelper.setFavorite(requireContext(), currentMovie.id.toString(), true)
+                    LikesHelper.setFavorite(currentMovie.id.toString(), true)
                     viewModel.insert(currentMovie)
-                    true
+                   valueLike = true
                 } else {
                     ivFavorite.setImageResource(R.drawable.ic_like)
-                    LikesHelper.setFavorite(requireContext(), currentMovie.id.toString(), true)
+                    LikesHelper.setFavorite(currentMovie.id.toString(), false)
                     viewModel.delete(currentMovie)
-                    false
+                   valueLike = false
                 }
             }
         }
@@ -96,7 +96,7 @@ class DetailsFragment : Fragment() {
         val vote: TextView = dialogView.findViewById(R.id.tv_vote)
 
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
-            viewModel.result.collect { result ->
+            viewModel.result.collect { result ->66666
                 delay(500)
                 if (result != null) {
                     Glide.with(image)
@@ -115,6 +115,7 @@ class DetailsFragment : Fragment() {
             }
         }
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

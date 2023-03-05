@@ -20,15 +20,10 @@
 
     <TextView
         android:id="@+id/tv_title"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/ButtonTheme"
         android:layout_marginTop="8dp"
         android:layout_marginBottom="16dp"
-        android:fontFamily="@font/mark_pro"
-        android:text="Movie"
-        android:textColor="@color/white"
-        android:textSize="16sp"
-        android:textStyle="bold"
+        android:text="@string/movies"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="@+id/iv_movie"
         app:layout_constraintStart_toStartOf="@+id/iv_movie"

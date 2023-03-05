@@ -19,6 +19,7 @@ import com.firebase.ui.auth.IdpResponse
 import com.google.android.material.snackbar.Snackbar
 import com.google.firebase.auth.FirebaseAuth
 import ru.cft.movieapp.databinding.FragmentLoginBinding
+import ru.cft.movieapp.util.AuthenticationState
 import ru.cft.movieapp.util.SIGN_IN_RESULT_CODE
 import ru.cft.movieapp.util.TAG
 
@@ -46,11 +47,11 @@ class LoginFragment : Fragment() {
         }
         viewModel.authenticationState.observe(viewLifecycleOwner, Observer { authState ->
             when (authState) {
-                LoginViewModel.AuthenticationState.AUTHENTICATED -> {
+                AuthenticationState.AUTHENTICATED -> {
                     navController.popBackStack()
                     navController.navigate(R.id.profileFragment)
                 }
-                LoginViewModel.AuthenticationState.INVALID_AUTHENTICATION -> {
+                AuthenticationState.INVALID_AUTHENTICATION -> {
                     Snackbar.make(view, requireActivity().getString(R.string.login_unsuccessful_msg),
                     Snackbar.LENGTH_LONG
                     ).show()
@@ -85,6 +86,7 @@ class LoginFragment : Fragment() {
         )
     }
 
+    @Deprecated("Deprecated in Java")
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == SIGN_IN_RESULT_CODE) {

@@ -32,9 +32,9 @@ class TvAdapter (private val listMovies: List<MovieItemModel>) :
                 tvTitle.text = movie.title
                 Glide.with(ivMovie)
                     .load(Api.POSTER_URL+movie.poster_path)
+                    .timeout(1000)
                     .placeholder(R.drawable.holder)
                     .error(R.drawable.not_found)
-                    .timeout(500)
                     .into(ivMovie)
             }
         }

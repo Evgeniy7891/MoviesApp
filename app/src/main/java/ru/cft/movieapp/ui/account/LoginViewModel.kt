@@ -3,14 +3,10 @@ package ru.cft.movieapp.ui.account
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.map
 import ru.cft.movieapp.data.firebase.FirebaseUser
+import ru.cft.movieapp.util.AuthenticationState
 
 class LoginViewModel : ViewModel() {
 
-    enum class AuthenticationState {
-        AUTHENTICATED,
-        UNAUTHENTICATED,
-        INVALID_AUTHENTICATION
-    }
     val authenticationState = FirebaseUser().map { user ->
         if(user != null) {
             AuthenticationState.AUTHENTICATED

@@ -18,15 +18,10 @@
 
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_personal_account"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="32dp"
+        style="@style/ButtonTheme"
         android:background="@drawable/button"
-        android:fontFamily="@font/mark_pro"
-        android:text="Log in to your profile"
-        android:textColor="@color/white"
-        android:textSize="14sp"
-        android:textStyle="bold"
+        android:layout_marginBottom="32dp"
+        android:text="@string/log_in_to_your_profile"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"/>

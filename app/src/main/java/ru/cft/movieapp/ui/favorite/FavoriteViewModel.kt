@@ -15,15 +15,15 @@ class FavoriteViewModel @Inject constructor(
 ): ViewModel() {
 
     val favoriteMovieList = MutableLiveData<MutableList<MovieItemModel>>()
-    val emptyList = MutableLiveData<Boolean>()
+    var emptyList = false
 
     fun gelAllMovies() = viewModelScope.launch {
         val list = getFavoriteUseCase.invoke()
         if(list.isNotEmpty()) {
             favoriteMovieList.postValue(list as MutableList<MovieItemModel>?)
-            emptyList.postValue(false)
+            emptyList = false
         } else {
-            emptyList.postValue(true)
+            emptyList= true
         }
     }
 }

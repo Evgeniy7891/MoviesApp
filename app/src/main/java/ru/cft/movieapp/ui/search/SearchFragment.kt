@@ -83,7 +83,6 @@ class SearchFragment : Fragment() {
             delay(1000)
             try {
                 val adapter = SearchAdapter(content)
-                if (content.isEmpty()) adapter.notifyDataSetChanged()
                 binding.rvListSearch.adapter = adapter
                 binding.rvListSearch.itemAnimator = null
                 binding.btnSearch.isLoading = false

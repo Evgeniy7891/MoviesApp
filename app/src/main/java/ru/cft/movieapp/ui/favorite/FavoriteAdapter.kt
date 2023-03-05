@@ -4,6 +4,7 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import okhttp3.internal.notify
 import ru.cft.movieapp.databinding.ItemFavoriteMovieBinding
 import ru.cft.movieapp.databinding.ItemOriginalFavoriteBinding
 import ru.cft.movieapp.models.MovieItemModel
@@ -34,7 +35,7 @@ class FavoriteAdapter(private val listMovies: List<MovieItemModel>) :
                 tvTitle.text = movie.title
                 Glide.with(ivMovie)
                     .load(Api.POSTER_URL+movie.poster_path)
-                    .timeout(300)
+                    .timeout(500)
                     .into(ivMovie)
             }
         }

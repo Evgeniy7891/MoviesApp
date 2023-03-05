@@ -9,4 +9,16 @@
     <string name="welcome_message">Привет, %1$s!</string>
     <string name="login_unsuccessful_msg">Вход не выполнен</string>
     <string name="login_successful_msg">Вход успешно выполнен</string>
+    <string name="title">Title</string>
+    <string name="description">Description</string>
+    <string name="full_information">Full information</string>
+    <string name="log_in_to_your_profile">Log in to your profile</string>
+    <string name="log_in">Log in</string>
+    <string name="register">Register</string>
+    <string name="go_back">Go back</string>
+    <string name="your_profile">Your profile</string>
+    <string name="name_movie_tv_show">name movie / tv show</string>
+    <string name="movies">Movies</string>
+    <string name="popular_movies">Popular movies</string>
+    <string name="search">Search</string>
 </resources>

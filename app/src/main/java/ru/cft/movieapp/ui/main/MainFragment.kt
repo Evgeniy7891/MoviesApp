@@ -2,6 +2,7 @@ package ru.cft.movieapp.ui.main
 
 import android.os.Bundle
 import android.view.*
+import android.widget.Toast
 import androidx.core.view.MenuHost
 import androidx.core.view.MenuProvider
 import androidx.fragment.app.Fragment
@@ -9,12 +10,15 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.Navigation
+import androidx.recyclerview.widget.RecyclerView.LayoutManager
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.delay
+import okhttp3.internal.notifyAll
 import ru.cft.movieapp.R
 import ru.cft.movieapp.databinding.FragmentMainBinding
 import ru.cft.movieapp.models.MovieItemModel
 import ru.cft.movieapp.util.ContentModel
+import ru.cft.movieapp.util.NoCrashLinearLayoutManager
 
 @AndroidEntryPoint
 class MainFragment : Fragment(), MenuProvider {
@@ -44,37 +48,46 @@ class MainFragment : Fragment(), MenuProvider {
         viewModel.getInfo()
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.result.collect { movies ->
+                delay(500)
                 if (movies != null) {
                     content.add(ContentModel("Popular movies", movies.results))
                 }
             }
         }
     }
+
     private fun initTv() {
         viewModel.getInfoTv()
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.resultTv.collect { tv ->
-                delay(500)
+                delay(1000)
                 if (tv != null) {
-                    content.add(ContentModel("Popular TV shows", tv.results))
-                    val adapter = MainAdapter(content)
-                    binding.rvListPopular.adapter = adapter
+                        content.add(ContentModel("Popular TV shows", tv.results))
+                        val adapter = MainAdapter(content)
+                        binding.rvListPopular.layoutManager = NoCrashLinearLayoutManager()
+                        binding.rvListPopular.adapter = adapter
+                        binding.rvListPopular.itemAnimator = null
                 }
             }
         }
     }
 
     companion object {
-        fun clickMovie(model : MovieItemModel, view: View) {
-                val bundle = Bundle()
-                bundle.putSerializable("key", model)
-                Navigation.createNavigateOnClickListener(R.id.action_mainFragment_to_detailsFragment, bundle).onClick(view)
+        fun clickMovie(model: MovieItemModel, view: View) {
+            val bundle = Bundle()
+            bundle.putSerializable("key", model)
+            Navigation.createNavigateOnClickListener(
+                R.id.action_mainFragment_to_detailsFragment,
+                bundle
+            ).onClick(view)
         }
     }
+
     override fun onStop() {
         content.clear()
         super.onStop()
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

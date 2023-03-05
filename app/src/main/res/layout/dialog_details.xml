@@ -2,103 +2,72 @@
 <androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:background="@color/black"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
+    android:backgroundTint="@color/black"
     app:cardCornerRadius="38dp">
 
     <ImageView
         android:id="@+id/iv_poster"
         android:layout_width="340dp"
         android:layout_height="510dp"
-        android:background="@color/black"
+        android:layout_gravity="center"
         android:src="@drawable/not_found" />
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="110dp"
         android:layout_gravity="center_horizontal|bottom"
+        android:layout_marginBottom="110dp"
         android:background="#A4493F3F">
 
         <TextView
             android:id="@+id/tv_title"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:fontFamily="@font/mark_pro"
-            tools:text="Title"
-            android:textStyle="bold"
-            android:textColor="@color/white"
-            android:textSize="14sp"
+            style="@style/ButtonTheme"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent" />
-
+            app:layout_constraintTop_toTopOf="parent"
+            tools:text="Title" />
 
         <TextView
             android:id="@+id/tv_years"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/mark_pro"
-            tools:text="Release date "
-            android:textColor="@color/white"
-            android:textSize="12sp"
+            style="@style/TextDetailsTheme"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_title" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_title"
+            tools:text="Release date" />
 
         <TextView
             android:id="@+id/tv_duration"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/mark_pro"
-            tools:text="Duration "
-            android:textColor="@color/white"
-            android:textSize="12sp"
+            style="@style/TextDetailsTheme"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_years" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_years"
+            tools:text="Duration " />
 
         <TextView
             android:id="@+id/tv_geners"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/mark_pro"
-            tools:text="Genre "
-            android:textColor="@color/white"
-            android:textSize="12sp"
+            style="@style/TextDetailsTheme"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_duration" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_duration"
+            tools:text="Genre " />
 
         <TextView
             android:id="@+id/tv_vote"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/mark_pro"
-            tools:text="Vote "
-            android:textColor="@color/white"
-            android:textSize="12sp"
+            style="@style/TextDetailsTheme"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_geners" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_geners"
+            tools:text="Vote " />
 
         <TextView
             android:id="@+id/tv_full"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="8dp"
-            android:fontFamily="@font/mark_pro"
-            tools:text="Descriptions"
-            android:textColor="@color/white"
-            android:textSize="12sp"
+            style="@style/TextDetailsTheme"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/tv_vote" />
+            app:layout_constraintTop_toBottomOf="@+id/tv_vote"
+            tools:text="Descriptions" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 </androidx.cardview.widget.CardView>

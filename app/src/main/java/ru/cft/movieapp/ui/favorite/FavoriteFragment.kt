@@ -26,24 +26,35 @@ class FavoriteFragment : Fragment() {
         _binding = FragmentFavoriteBinding.inflate(layoutInflater, container, false)
         return binding.root
     }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         init()
         super.onViewCreated(view, savedInstanceState)
     }
+
     private fun init() {
         viewModel.gelAllMovies()
-            viewModel.favoriteMovieList.observe(viewLifecycleOwner) { list ->
-            val adapter = FavoriteAdapter(list.asReversed())
-            binding.rvListFavorite.adapter = adapter
+        viewModel.favoriteMovieList.observe(viewLifecycleOwner) { list ->
+            println("LIST - $list")
+            if (!viewModel.emptyList) {
+                println("LIST - $list")
+                val adapter = FavoriteAdapter(list)
+                binding.rvListFavorite.adapter = adapter
+            }
         }
     }
+
     companion object {
-        fun clickMovie(model : MovieItemModel, view: View) {
+        fun clickMovie(model: MovieItemModel, view: View) {
             val bundle = Bundle()
             bundle.putSerializable("key", model)
-            Navigation.createNavigateOnClickListener(R.id.action_favoriteFragment_to_detailsFragment, bundle).onClick(view)
+            Navigation.createNavigateOnClickListener(
+                R.id.action_favoriteFragment_to_detailsFragment,
+                bundle
+            ).onClick(view)
         }
     }
+
     override fun onDestroyView() {
         super.onDestroyView()
         _binding = null

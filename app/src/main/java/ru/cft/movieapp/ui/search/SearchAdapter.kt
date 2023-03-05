@@ -23,7 +23,6 @@ class SearchAdapter (private val listMovies: List<ContentModel>) :
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val item = listMovies[position]
-        notifyDataSetChanged()
         holder.textHeader.text = item.title
         val list = item.info
         holder.recyclerView.apply {

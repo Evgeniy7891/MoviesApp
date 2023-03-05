@@ -19,7 +19,7 @@
         android:elevation="5dp"
         android:backgroundTint="@color/teal_700"
         android:textColorHint="@color/white"
-        android:hint="name movie"
+        android:hint="@string/name_movie_tv_show"
         android:paddingHorizontal="15dp"
         android:textSize="12sp"
         android:textColor="@color/white"

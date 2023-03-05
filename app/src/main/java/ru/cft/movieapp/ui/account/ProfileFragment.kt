@@ -11,6 +11,7 @@ import com.firebase.ui.auth.AuthUI
 import com.google.firebase.auth.FirebaseAuth
 import ru.cft.movieapp.R
 import ru.cft.movieapp.databinding.FragmentProfileBinding
+import ru.cft.movieapp.util.AuthenticationState
 
 class ProfileFragment : Fragment() {
 
@@ -33,7 +34,7 @@ class ProfileFragment : Fragment() {
 
     private fun observeAuthState() {
         viewModel.authenticationState.observe(viewLifecycleOwner) { authState ->
-            if (authState == LoginViewModel.AuthenticationState.AUTHENTICATED) {
+            if (authState == AuthenticationState.AUTHENTICATED) {
                 val hello = String.format(
                     resources.getString(
                         R.string.welcome_message,

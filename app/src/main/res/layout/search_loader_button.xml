@@ -18,7 +18,7 @@
             android:layout_gravity="center"
             android:gravity="center"
             android:textAppearance="@style/TextAppearance.AppCompat.Body1"
-            android:text="Search"
+            android:text="@string/search"
             android:visibility="visible"
             android:textSize="18sp"
             android:textColor="@color/white" />
