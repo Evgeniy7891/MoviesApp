@@ -1,11 +1,12 @@
 package ru.cft.movieapp.data.room.repository
 
-import androidx.lifecycle.LiveData
 import ru.cft.movieapp.data.room.dao.MoviesDao
+import ru.cft.movieapp.domain.repository.MoviesRoomRepository
 import ru.cft.movieapp.models.MovieItemModel
 import javax.inject.Inject
 
-class MoviesRoomRepositoryImpl @Inject constructor (private val movieDao: MoviesDao) : MoviesRoomRepository {
+class MoviesRoomRepositoryImpl @Inject constructor (private val movieDao: MoviesDao) :
+    MoviesRoomRepository {
 
     override val allMovies: List<MovieItemModel>
     get() = movieDao.getAllMovies()

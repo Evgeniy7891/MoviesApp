@@ -6,7 +6,7 @@ import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import ru.cft.movieapp.data.datasources.MovieRemoteDataSource
 import ru.cft.movieapp.data.repository.MoviesRepositoryImpl
-import ru.cft.movieapp.data.room.repository.MoviesRoomRepository
+import ru.cft.movieapp.domain.repository.MoviesRoomRepository
 import ru.cft.movieapp.data.room.repository.MoviesRoomRepositoryImpl
 import ru.cft.movieapp.domain.repository.MoviesRepository
 import ru.cft.movieapp.providers.MoviesRemoteDataSourceImpl

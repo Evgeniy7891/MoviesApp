@@ -1,7 +1,6 @@
-package ru.cft.movieapp.data.room.repository
+package ru.cft.movieapp.domain.repository
 
 import ru.cft.movieapp.models.MovieItemModel
-
 
 interface MoviesRoomRepository {
     val allMovies: List<MovieItemModel>

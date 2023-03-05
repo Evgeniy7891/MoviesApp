@@ -1,6 +1,6 @@
 package ru.cft.movieapp.domain.usecases
 
-import ru.cft.movieapp.data.room.repository.MoviesRoomRepository
+import ru.cft.movieapp.domain.repository.MoviesRoomRepository
 import ru.cft.movieapp.models.MovieItemModel
 import javax.inject.Inject
 

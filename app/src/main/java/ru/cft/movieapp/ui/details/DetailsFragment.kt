@@ -8,19 +8,16 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
-import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
-import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.delay
 import ru.cft.movieapp.R
 import ru.cft.movieapp.databinding.FragmentDetailsBinding
 import ru.cft.movieapp.models.MovieItemModel
 import ru.cft.movieapp.providers.Api
-import ru.cft.movieapp.ui.favorite.FavoriteViewModel
-import ru.cft.movieapp.util.ContentModel
+import ru.cft.movieapp.util.LikesHelper
 
 @AndroidEntryPoint
 class DetailsFragment : Fragment() {
@@ -49,6 +46,11 @@ class DetailsFragment : Fragment() {
     }
 
     private fun init() {
+        val valueLike = LikesHelper.getFavorite(requireContext(), currentMovie.id.toString())
+
+        if (isFavorite != valueLike) binding.ivFavorite.setImageResource(R.drawable.ic_full_like) else
+            binding.ivFavorite.setImageResource(R.drawable.ic_like)
+
         with(binding) {
             Glide.with(ivMovie)
                 .load(Api.POSTER_DETAILS_URL + currentMovie.backdrop_path)
@@ -60,12 +62,14 @@ class DetailsFragment : Fragment() {
             tvDescription.text = currentMovie.overview
 
             ivFavorite.setOnClickListener {
-                isFavorite = if (!isFavorite) {
+                isFavorite = if (isFavorite == valueLike) {
                     ivFavorite.setImageResource(R.drawable.ic_full_like)
+                    LikesHelper.setFavorite(requireContext(), currentMovie.id.toString(), true)
                     viewModel.insert(currentMovie)
                     true
                 } else {
                     ivFavorite.setImageResource(R.drawable.ic_like)
+                    LikesHelper.setFavorite(requireContext(), currentMovie.id.toString(), true)
                     viewModel.delete(currentMovie)
                     false
                 }
@@ -88,6 +92,7 @@ class DetailsFragment : Fragment() {
 
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.result.collect { result ->
+                delay(1000)
                 if (result != null) {
                     Glide.with(image)
                         .load(Api.POSTER_URL + result.poster_path)
@@ -95,11 +100,12 @@ class DetailsFragment : Fragment() {
                         .placeholder(R.drawable.tools_poster)
                         .into(image)
                     title.text = result.title
-                    years.text = String.format("%s%s","Realease date ",result.release_date)
-                    duration.text = String.format("%s%s","Duration ",result.runtime.toString(), " min.")
-                    geners.text = String.format("%s%s","Genre ",result.genres[0].name)
+                    years.text = String.format("%s%s", "Realease date ", result.release_date)
+                    duration.text =
+                        String.format("%s%s", "Duration ", result.runtime.toString(), " min.")
+                    geners.text = String.format("%s%s", "Genre ", result.genres[0].name)
                     descriptions.text = result.overview
-                    vote.text = String.format("%s%s","Vote ", result.vote_average.toString())
+                    vote.text = String.format("%s%s", "Vote ", result.vote_average.toString())
                 } else geners.text = StringBuilder().append("Information in development")
             }
         }
