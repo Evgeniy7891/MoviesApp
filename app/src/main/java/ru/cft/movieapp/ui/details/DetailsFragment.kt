@@ -8,14 +8,15 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
+import androidx.core.view.isVisible
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.google.firebase.auth.FirebaseAuth
 import dagger.hilt.android.AndroidEntryPoint
 import ru.cft.movieapp.R
 import ru.cft.movieapp.databinding.FragmentDetailsBinding
-import ru.cft.movieapp.databinding.FragmentFavoriteBinding
 import ru.cft.movieapp.models.MovieItemModel
 import ru.cft.movieapp.providers.Api
 import ru.cft.movieapp.ui.favorite.FavoriteViewModel
@@ -83,6 +84,7 @@ class DetailsFragment : Fragment() {
         val duration: TextView = dialogView.findViewById(R.id.tv_duration)
         val geners: TextView = dialogView.findViewById(R.id.tv_geners)
         val descriptions: TextView = dialogView.findViewById(R.id.tv_full)
+        val vote: TextView = dialogView.findViewById(R.id.tv_vote)
 
         viewLifecycleOwner.lifecycleScope.launchWhenCreated {
             viewModel.result.collect { result ->
@@ -90,15 +92,15 @@ class DetailsFragment : Fragment() {
                     Glide.with(image)
                         .load(Api.POSTER_URL + result.poster_path)
                         .timeout(1000)
-                        .placeholder(R.drawable.search_holder)
+                        .placeholder(R.drawable.tools_poster)
                         .into(image)
-
                     title.text = result.title
-                    years.text = result.release_date
-                    duration.text = result.runtime.toString() + " " + "min."
-                    geners.text = result.genres[0].name
+                    years.text = String.format("%s%s","Realease date ",result.release_date)
+                    duration.text = String.format("%s%s","Duration ",result.runtime.toString(), " min.")
+                    geners.text = String.format("%s%s","Genre ",result.genres[0].name)
                     descriptions.text = result.overview
-                }
+                    vote.text = String.format("%s%s","Vote ", result.vote_average.toString())
+                } else geners.text = StringBuilder().append("Information in development")
             }
         }
     }
